@@ -62,7 +62,37 @@ body, html {
 
 
 .bottom-section {
-    height: 45vh; 
-    background-color: #a782b7; 
+    height: 45vh;
+    background-color: #a782b7;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.botoes-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 30px 24px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.botao {
+    padding: 22px 20px;
+    background-color: #fff;
+    color: #7b4fa6;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.botao:hover {
+    background-color: #ede0f5;
+    transform: scale(1.02);
 }

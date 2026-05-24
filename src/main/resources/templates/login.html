@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Army</title>
+    <link rel="stylesheet" th:href="@{/css/form.css}">
+</head>
+<body>
+
+    <div class="cadastro-container">
+
+        <div class="cadastro-box">
+
+            <h1>ARMY ZONE 💜</h1>
+
+            <p>Entre na comunidade Army</p>
+
+            <form th:action="@{/login}" method="post">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required>
+
+                <button type="submit">Entrar</button>
+
+            </form>
+
+            <p style="margin-top: 16px; text-align: center;">
+                Não tem conta? <a th:href="@{/cadastro}">Cadastre-se</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

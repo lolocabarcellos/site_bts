@@ -1,24 +1,23 @@
 package com.model;
 
-// POJO
-// aqui vou ter os modelos para as tabelas do banco
 public class Usuario {
     private int id;
-    private String nome, cpf;
+    private String nome, email, senha;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String cpf) {
-        // o id é incrementável
+    public Usuario(String nome, String email, String senha) {
         this.nome = nome;
-        this.cpf = cpf;
+        this.email = email;
+        this.senha = senha;
     }
 
-    public Usuario(int id, String nome, String cpf) {
+    public Usuario(int id, String nome, String email, String senha) {
         this.id = id;
         this.nome = nome;
-        this.cpf = cpf;
+        this.email = email;
+        this.senha = senha;
     }
 
     public void setId(int id) {
@@ -29,8 +28,12 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public int getId() {
@@ -41,11 +44,11 @@ public class Usuario {
         return nome;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getEmail() {
+        return email;
     }
 
-
+    public String getSenha() {
+        return senha;
+    }
 }
-
-

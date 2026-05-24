@@ -1,8 +1,12 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/bts_project
+    url: jdbc:postgresql://localhost:5432/site
     username: postgres
-    password: root
+    password: postgres123
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-postgres.sql
   jpa:
     hibernate:
       ddl-auto: update

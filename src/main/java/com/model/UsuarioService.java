@@ -12,4 +12,8 @@ public class UsuarioService {
     public void inserir(Usuario usuario) {
         udao.inserir(usuario);
     }
+
+    public boolean login(String email, String senha) {
+    return udao.login(email, senha);
+}
 }
