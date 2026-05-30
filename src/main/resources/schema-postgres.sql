@@ -5,9 +5,10 @@ CREATE TABLE IF NOT EXISTS usuario (
     senha VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS membro_bts (
+CREATE TABLE IF NOT EXISTS noticia (
     id BIGSERIAL PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL,
-    descricao TEXT,
+    titulo VARCHAR(255) NOT NULL,
+    resumo TEXT,
+    conteudo TEXT NOT NULL,
     imagem VARCHAR(255)
 );

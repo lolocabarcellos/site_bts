@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${noticia.titulo}">Detalhe da Notícia</title>
+    <link rel="stylesheet" th:href="@{/css/membros.css}">
+</head>
+<body>
+
+    <header>
+        <a th:href="@{/noticias}">← Voltar</a>
+        <h1>Notícias 📰</h1>
+    </header>
+
+    <main>
+        <section class="membro">
+            <h2 th:text="${noticia.titulo}"></h2>
+            <p th:text="${noticia.conteudo}"></p>
+        </section>
+    </main>
+
+</body>
+</html>

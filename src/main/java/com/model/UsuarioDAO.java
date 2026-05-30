@@ -1,9 +1,8 @@
 package com.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -18,38 +17,42 @@ public class UsuarioDAO {
     @Autowired
     DataSource dataSource;
 
-    public UsuarioDAO() {
-    }
+    private JdbcTemplate jdbc;
 
     @PostConstruct
     private void postConstruct() {
-        // No-op: using DataSource directly
+        jdbc = new JdbcTemplate(dataSource);
     }
 
     public void inserir(Usuario usuario) {
         String sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, usuario.getNome());
-            ps.setString(2, usuario.getEmail());
-            ps.setString(3, usuario.getSenha());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Object[] obj = new Object[3];
+        obj[0] = usuario.getNome();
+        obj[1] = usuario.getEmail();
+        obj[2] = usuario.getSenha();
+        jdbc.update(sql, obj);
     }
 
     public boolean login(String email, String senha) {
         String sql = "SELECT COUNT(*) FROM usuario WHERE email = ? AND senha = ?";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, email);
-            ps.setString(2, senha);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            return rs.getInt(1) > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        Map<String, Object> resultado = jdbc.queryForMap(sql, email, senha);
+        long count = (long) resultado.get("count");
+        return count > 0;
+    }
+
+    public Usuario obterUsuario(int id) {
+        String sql = "SELECT * FROM usuario WHERE id = ?";
+        Map<String, Object> registros = jdbc.queryForMap(sql, id);
+        return Usuario.converterRegistros(registros);
+    }
+
+    public List<Usuario> obterTodosUsuarios() {
+        String sql = "SELECT * FROM usuario";
+        List<Map<String, Object>> listaRegistros = jdbc.queryForList(sql);
+        ArrayList<Usuario> aux = new ArrayList<>();
+        for (Map<String, Object> registro : listaRegistros) {
+            aux.add(Usuario.converterRegistros(registro));
         }
+        return aux;
     }
 }

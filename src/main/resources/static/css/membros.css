@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f5eefa;
+}
+
+header {
+    background-color: #a782b7;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+header h1 {
+    color: #fff;
+    font-size: 22px;
+}
+
+main {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 24px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.membro {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.membro h2 {
+    color: #7b4fa6;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.membro p {
+    color: #444;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 6px;
+}
+
+.membro p:last-child {
+    margin-bottom: 0;
+}
+
+.membro strong {
+    color: #7b4fa6;
+}
+
+.card-link {
+    text-decoration: none;
+    display: block;
+}
+
+.card-link:hover .membro {
+    background-color: #ede0f5;
+    transform: scale(1.01);
+    transition: transform 0.1s;
+}
