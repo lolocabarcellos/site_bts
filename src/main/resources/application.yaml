@@ -1,16 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/site
-    username: postgres
-    password: postgres123
+    url: jdbc:postgresql://dpg-d8f0u6i8qa3s738f8sig-a.oregon-postgres.render.com:5432/sitedados?sslmode=require
+    username: admin
+    password: UdW6H4XTUZe0YkoablwfuxpJiu9D9YUZ
+    driverClassName: org.postgresql.Driver
+
   sql:
     init:
       mode: always
       schema-locations: classpath:schema-postgres.sql
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect

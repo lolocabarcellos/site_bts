@@ -66,6 +66,11 @@ public class MenuController {
         return "membros";
     }
 
+     @GetMapping("/tour")
+        public String tour() {
+        return "tour";
+    }
+
     @GetMapping("/noticias")
         public String noticias(Model model) {
         NoticiaService ns = context.getBean(NoticiaService.class);

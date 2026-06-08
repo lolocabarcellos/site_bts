@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${noticia.titulo}">Detalhe da Notícia</title>
-    <link rel="stylesheet" th:href="@{/css/membros.css}">
+    <link rel="stylesheet" th:href="@{/css/detalhe-noticia.css}">
 </head>
 <body>
 
     <header>
-        <a th:href="@{/noticias}">← Voltar</a>
+        <a th:href="@{/noticias}">←</a>
         <h1>Notícias 📰</h1>
     </header>
 
@@ -17,6 +17,10 @@
         <section class="membro">
             <h2 th:text="${noticia.titulo}"></h2>
             <p th:text="${noticia.conteudo}"></p>
+            <img class="foto-noticia" th:src="@{'/img/' + ${noticia.imagem}}" th:alt="${noticia.titulo}">
+            <footer>
+                <img th:src="@{/img/loloca-news.png}" alt="Loloca News">
+            </footer>
         </section>
     </main>
 

@@ -4,12 +4,14 @@ import java.util.Map;
 
 public class Usuario {
     private int id;
-    private String nome, email, senha;
+    private Nome nome;
+    private Email email;
+    private Senha senha;
 
     public Usuario() {
     }
 
-    public Usuario(int id, String nome, String email, String senha) {
+    public Usuario(int id, Nome nome, Email email, Senha senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -17,42 +19,42 @@ public class Usuario {
     }
 
     public static Usuario converterRegistros(Map<String, Object> registros) {
-        int id = (int) registros.get("id");
-        String nome = (String) registros.get("nome");
-        String email = (String) registros.get("email");
-        String senha = (String) registros.get("senha");
+        int id = ((Number) registros.get("id")).intValue();
+        Nome nome   = new Nome((String) registros.get("nome"));
+        Email email = new Email((String) registros.get("email"));
+        Senha senha = new Senha((String) registros.get("senha"));
         return new Usuario(id, nome, email, senha);
     }
 
-    public void setId(int id)          {
-        this.id = id; 
+    public void setId(int id){
+        this.id = id;
     }
 
-    public void setNome(String nome)   {
-        this.nome = nome; 
+    public void setNome(Nome nome){
+        this.nome = nome;
     }
 
-    public void setEmail(String email) {
-        this.email = email; 
+    public void setEmail(Email email){
+        this.email = email;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha; 
+    public void setSenha(Senha senha){
+        this.senha = senha;
     }
 
-    public int getId()       {
-        return id; 
+    public int getId(){
+        return id;
     }
 
-    public String getNome()  {
-        return nome; 
+    public Nome getNome(){
+        return nome;
     }
 
-    public String getEmail() {
+    public Email getEmail(){
         return email;
     }
 
-    public String getSenha() {
+    public Senha getSenha(){
         return senha;
     }
 }

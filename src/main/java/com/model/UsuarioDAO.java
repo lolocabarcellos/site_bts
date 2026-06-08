@@ -27,9 +27,9 @@ public class UsuarioDAO {
     public void inserir(Usuario usuario) {
         String sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
         Object[] obj = new Object[3];
-        obj[0] = usuario.getNome();
-        obj[1] = usuario.getEmail();
-        obj[2] = usuario.getSenha();
+        obj[0] = usuario.getNome().valor();
+        obj[1] = usuario.getEmail().valor();
+        obj[2] = usuario.getSenha().valor();
         jdbc.update(sql, obj);
     }
 

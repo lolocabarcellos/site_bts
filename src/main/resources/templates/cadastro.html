@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<!-- ✅ Correto -->
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Army</title>
-
     <link rel="stylesheet" th:href="@{/css/form.css}">
 </head>
 <body>
@@ -18,16 +16,18 @@
 
             <p>Cadastre-se para entrar na comunidade Army</p>
 
-           <form th:action="@{/usuario}" method="post">
+            <div id="alerta" style="display:none; padding:10px; border-radius:6px; margin-bottom:12px; text-align:center; font-weight:bold;"></div>
+
+            <form th:action="@{/usuario}" method="post" id="formCadastro">
 
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required>
+                <input type="text" id="nome" name="nome">
 
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email">
 
                 <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" required>
+                <input type="password" id="senha" name="senha">
 
                 <button type="submit">Cadastrar</button>
 
@@ -36,6 +36,8 @@
         </div>
 
     </div>
+
+    <script th:src="@{/js/cadastro.js}"></script>
 
 </body>
 </html>
