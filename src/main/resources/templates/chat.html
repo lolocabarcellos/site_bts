@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Army Zone - Chat das ARMYs 💜</title>
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
+</head>
+<body th:attr="data-session=${sessionId}">
+
+    <header>
+        <a th:href="@{/home}">← Voltar</a>
+        <h1>💜 Army Zone</h1>
+        <span class="subtitulo">Chat das ARMYs</span>
+    </header>
+
+    <main>
+        <div class="feed-container">
+
+            <!-- Caixa de postagem principal -->
+            <div class="post-box" id="post-box-principal">
+                <div class="post-box-avatar">💜</div>
+                <form method="post" th:action="@{/chat}" class="post-form">
+                    <input type="hidden" name="respostaId" id="respostaId" value="" />
+                    <div class="respondendo-a" id="respondendo-a" style="display:none;">
+                        <span id="texto-respondendo">Respondendo a Army...</span>
+                        <button type="button" onclick="cancelarResposta()">✕</button>
+                    </div>
+                    <textarea name="conteudo"
+                              id="conteudo"
+                              placeholder="O que você está pensando, Army?"
+                              maxlength="280"
+                              rows="2"
+                              required></textarea>
+                    <div class="post-footer">
+                        <span class="contador" id="contador">280</span>
+                        <button type="submit" class="btn-postar">Postar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Feed -->
+            <div id="feed">
+                <div th:if="${#lists.isEmpty(mensagens)}" class="sem-posts">
+                    <p>Nenhuma mensagem ainda. Seja a primeira Army a postar! 💜</p>
+                </div>
+
+                <div th:each="msg, iterStat : ${mensagens}"
+                     class="post-card"
+                     th:attr="data-index=${iterStat.index}, data-id=${msg.id()}">
+
+                    <div class="post-avatar" th:attr="data-index=${iterStat.index}">💜</div>
+
+                    <div class="post-body">
+                        <div class="post-header">
+                            <span class="post-nome" th:attr="data-index=${iterStat.index}">Army</span>
+                            <span class="post-handle">@army_bts</span>
+                            <span class="post-dot">·</span>
+                            <span class="post-hora"
+                                  th:text="${#temporals.format(msg.criadoEm(), 'dd/MM HH:mm')}">
+                            </span>
+                        </div>
+
+                        <!-- Citação de resposta -->
+                        <div th:if="${msg.respostaId() != null}" class="citacao">
+                            <span class="citacao-label">↩ respondendo a Army</span>
+                            <p class="citacao-texto" th:text="${msg.respostaConteudo()}"></p>
+                        </div>
+
+                        <p class="post-texto" th:text="${msg.conteudo()}"></p>
+
+                        <div class="post-acoes">
+                            <!-- Responder -->
+                            <button class="acao-btn acao-responder"
+                                    th:attr="data-id=${msg.id()}, data-texto=${msg.conteudo()}"
+                                    onclick="iniciarResposta(this)"
+                                    title="Responder">
+                                <span class="acao-icone">💬</span>
+                            </button>
+
+                            <!-- Curtir -->
+                            <form method="post"
+                                  th:action="@{'/chat/curtir/' + ${msg.id()}}"
+                                  class="form-curtir">
+                                <button type="submit"
+                                        class="acao-btn acao-curtir"
+                                        th:classappend="${curtidas != null and curtidas.contains(msg.id())} ? ' curtido' : ''"
+                                        title="Curtir">
+                                    <span class="acao-icone"
+                                          th:text="${curtidas != null and curtidas.contains(msg.id())} ? '🩷' : '🤍'">🤍</span>
+                                    <span class="acao-count"
+                                          th:text="${msg.curtidas() > 0} ? ${msg.curtidas()} : ''"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const cores = [
+            '#a782b7', '#e8838f', '#5ba4cf', '#f5a623',
+            '#67c3a0', '#e07b7b', '#7bb8f5', '#c97dd4',
+            '#f0a500', '#6bbf8e', '#e06b9a', '#5b9ecf'
+        ];
+
+        document.querySelectorAll('.post-card').forEach(card => {
+            const index = parseInt(card.dataset.index);
+            const cor = cores[index % cores.length];
+            card.querySelector('.post-avatar').style.backgroundColor = cor;
+            card.querySelector('.post-nome').style.color = cor;
+        });
+
+        function iniciarResposta(btn) {
+            const id = btn.dataset.id;
+            const texto = btn.dataset.texto;
+            document.getElementById('respostaId').value = id;
+            const box = document.getElementById('respondendo-a');
+            box.style.display = 'flex';
+            const trecho = texto.length > 60 ? texto.substring(0, 60) + '...' : texto;
+            document.getElementById('texto-respondendo').textContent = '\u21A9 Respondendo: "' + trecho + '"';
+            document.getElementById('conteudo').focus();
+            document.getElementById('post-box-principal').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cancelarResposta() {
+            document.getElementById('respostaId').value = '';
+            document.getElementById('respondendo-a').style.display = 'none';
+        }
+
+        const textarea = document.getElementById('conteudo');
+        const contador = document.getElementById('contador');
+        textarea.addEventListener('input', () => {
+            const restante = 280 - textarea.value.length;
+            contador.textContent = restante;
+            contador.style.color = restante < 20 ? '#e07b7b' : '#aaa';
+        });
+    </script>
+
+</body>
+</html>
